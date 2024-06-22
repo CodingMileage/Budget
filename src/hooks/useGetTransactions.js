@@ -2,7 +2,7 @@ import { useEffect } from "react"
 
 export const useGetTransactions = () => {
 
-    const [useGetTransactions, setUseGetTransactions] = useState([])
+    const [transactions, setTransactions] = useState([])
 
     const getTransactions = async () => {
 
