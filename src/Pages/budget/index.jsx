@@ -15,10 +15,14 @@ export const Budget = () => {
   const { addTransaction } = useAddTransaction();
   const { transactions } = useGetTransactions();
   const {name, profilePhoto} = useGetUserInfo();
+  const {transactionTotals} = useGetTransactions();
 
   const [description, setDescription] = useState("");
   const [transactionAmount, setTransactionAmount] = useState(0);
   const [transactionType, setTransactionType] = useState("Expense")
+  const [balance, setBalance] = useState(0);
+  const [income, setIncome] = useState(0);
+  const [expenses, setExpenses] = useState(0);
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -28,12 +32,37 @@ export const Budget = () => {
   const logout = async () => {
     try {
       await signOut(auth);
+      localStorage.clear();
       navigate("/")
       console.log("Logged out");
     } catch (error) {
       console.log(error);
     }
   };
+
+  // const sortTransactions = () => {
+  //   let rollingIncome = 0;
+  //   let rollingExpense = 0;
+  
+  //   transactions.forEach((transaction) => {
+  //     const { transactionAmount, transactionType } = transaction;
+  //     const amount = parseInt(transactionAmount)
+  
+  //     if (transactionType === "income") {
+  //       rollingIncome += amount;
+  //     } else if (transactionType === "expense") {
+  //       parseInt(transactionAmount)
+  //       rollingExpense += amount;
+  //     }
+  //   });
+
+  //   console.log(rollingExpense)
+  
+  //   setIncome(rollingIncome);
+  //   setExpenses(rollingExpense);
+  //   setBalance(rollingIncome - rollingExpense);
+  // };
+  
 
   return (
   <>
@@ -44,18 +73,20 @@ export const Budget = () => {
         <button className="p-2 bg-red-700 rounded" onClick={logout}>Logout</button>
         <div className="">
           <h3>Your balance</h3>
-          <h2>$0.00</h2>
+          <h2>${transactionTotals.balance}</h2>
         </div>
+
+        {/* <button onClick={sortTransactions}>UH</button> */}
 
         <div>
           <div>
             <h4>Income</h4>
-            <p>$0.00</p>
+            <p>${transactionTotals.income}</p>
           </div>
 
           <div>
             <h4>Expenses</h4>
-            <p>$0.00</p>
+            <p>${transactionTotals.expenses}</p>
           </div>
           
         </div>

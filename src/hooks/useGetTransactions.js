@@ -6,9 +6,15 @@ import {useGetUserInfo} from './useGetUserInfo'
 export const useGetTransactions = () => {
 
     const [transactions, setTransactions] = useState([])
+    const [transactionTotals, setTransactionTotals] = useState({
+        balance: 0.0,
+        income: 0.0,
+        expenses: 0.0,
+    });
 
     const transactionCollectionRef = collection(db, "transactions")
     const {userID} = useGetUserInfo()
+
     const getTransactions = async () => {
 
         let unsubscribe;
@@ -20,18 +26,33 @@ export const useGetTransactions = () => {
                 orderBy("createdAt")
             );
 
-            let unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
+            unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
 
-                const docs = [];
+                let docs = [];
+                let totalIncome = 0
+                let totalExpenses = 0
 
                 snapshot.forEach((doc) => {
                     const data = doc.data();
                     const id = doc.id;
 
+                    if (data.transactionType === "income") {
+                        totalIncome += parseInt(data.transactionAmount);
+                      } else {
+                        totalExpenses += parseInt(data.transactionAmount);
+                      }
+
                     docs.push({ ...data, id });
                 })
-
+                // console.log(docs)
                 setTransactions(docs)
+
+                let balance = totalIncome - totalExpenses
+                setTransactionTotals({
+                    balance,
+                    income: totalIncome,
+                    expenses: totalExpenses,
+                })
             })
         } catch (err) {
             console.log(err)
@@ -44,5 +65,5 @@ export const useGetTransactions = () => {
         getTransactions()
     }, [])
 
-    return {transactions}
+    return {transactions, transactionTotals}
 }
