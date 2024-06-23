@@ -21,7 +21,7 @@ export const Auth = () => {
     <div className="flex flex-col m-4">
       <p>Sign In With Google</p>
       <button
-        className="p-2 w-20 bg-slate-400 rounded"
+        className="w-20 p-2 rounded bg-slate-400"
         onClick={signInWithGoogle}
       >
         Sign In
