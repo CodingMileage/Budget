@@ -5,6 +5,7 @@ import { useGetUserInfo } from "../../hooks/useGetUserInfo"
 import { useAddTransaction } from "../../hooks/useAddTransaction"
 import { useGetTransactions } from "../../hooks/useGetTransactions"
 import { useNavigate } from "react-router-dom";
+import { useDeleteTransaction } from "../../hooks/useDeleteTransaction";
 
 
 
@@ -13,21 +14,25 @@ export const Budget = () => {
   const navigate = useNavigate();
 
   const { addTransaction } = useAddTransaction();
-  const { transactions } = useGetTransactions();
+  const { transactions, transactionTotals, deleteTransaction } = useGetTransactions();
+  // const { deleteTransaction } = useDeleteTransaction();
   const {name, profilePhoto} = useGetUserInfo();
-  const {transactionTotals} = useGetTransactions();
 
   const [description, setDescription] = useState("");
   const [transactionAmount, setTransactionAmount] = useState(0);
   const [transactionType, setTransactionType] = useState("Expense")
-  const [balance, setBalance] = useState(0);
-  const [income, setIncome] = useState(0);
-  const [expenses, setExpenses] = useState(0);
+  // const [balance, setBalance] = useState(0);
+  // const [income, setIncome] = useState(0);
+  // const [expenses, setExpenses] = useState(0);
 
   const onSubmit = async (e) => {
     e.preventDefault()
     addTransaction({description, transactionAmount, transactionType})
   }
+
+  const handleDelete = async (transactionId) => {
+    await deleteTransaction(transactionId);
+  };
 
   const logout = async () => {
     try {
@@ -69,7 +74,7 @@ export const Budget = () => {
     <div className="flex p-4 m-4 rounded bg-slate-400">
       
       <div className="">
-        <h1>{name}</h1>
+        <h1>Hi {name}</h1>
         <button className="p-2 bg-red-700 rounded" onClick={logout}>Logout</button>
         <div className="">
           <h3>Your balance</h3>
@@ -90,6 +95,7 @@ export const Budget = () => {
           </div>
           
         </div>
+
         <form action="" className="p-2 rounded-lg bg-slate-200" onSubmit={onSubmit}>
 
           <input 
@@ -111,8 +117,8 @@ export const Budget = () => {
           
           <input 
           type="radio" 
-          id="expense" 
-          value="expense" 
+          id="Expense" 
+          value="Expense" 
           checked={transactionType === "Expense"}
           className="m-1"
           onChange={(e) => setTransactionType(e.target.value)}
@@ -122,8 +128,8 @@ export const Budget = () => {
           
           <input 
           type="radio" 
-          id="income" 
-          value="income" 
+          id="Income" 
+          value="Income" 
           checked={transactionType === "Income"}
           className="m-1"
           onChange={(e) => setTransactionType(e.target.value)}
@@ -131,11 +137,13 @@ export const Budget = () => {
           <label htmlFor="Income">Income</label>
 
           <button 
-            type="sumbit"
+            type="submit"
+            // onClick={}
             className="px-1 py-1 m-2 bg-blue-400 rounded hover:bg-blue-500">
               Add Transaction
           </button>
         </form>
+
       </div>
       {profilePhoto && <div><img src={profilePhoto} alt="" className="rounded-full" /></div>}
     </div>
@@ -143,16 +151,25 @@ export const Budget = () => {
     <div className="flex flex-col p-4 m-4 rounded bg-slate-400">
       <h3 className="">Transactions</h3>
       <ul>
-        {transactions.map((transaction) => {
+        {transactions.map((transaction, index) => {
 
-          const {description, transactionAmount, transactionType} = transaction
+          const {description, transactionAmount, transactionType, id} = transaction
 
-          return <li className="p-2 m-2 rounded bg-slate-100 hover:bg-slate-700">
-            <h4>{description}</h4>
-            <p>${transactionAmount} • <label className="">{transactionType}</label></p>
-          </li>
+          return (
+            <li key={index} className="p-2 m-2 rounded bg-slate-100 ">
+              <h4>{description}</h4>
+              <p>${transactionAmount} • <label className="">{transactionType}</label></p>
+              <button 
+                className="p-1 bg-red-500 rounded hover:bg-red-400"
+                onClick={() => handleDelete(id)}
+              >
+                Delete
+              </button>
+            </li>
+          )
         })}
       </ul>
+
     </div>
 
     </>
