@@ -5,7 +5,6 @@ import { useGetUserInfo } from "../../hooks/useGetUserInfo"
 import { useAddTransaction } from "../../hooks/useAddTransaction"
 import { useGetTransactions } from "../../hooks/useGetTransactions"
 import { useNavigate } from "react-router-dom";
-import { useDeleteTransaction } from "../../hooks/useDeleteTransaction";
 
 
 
@@ -15,7 +14,6 @@ export const Budget = () => {
 
   const { addTransaction } = useAddTransaction();
   const { transactions, transactionTotals, deleteTransaction } = useGetTransactions();
-  // const { deleteTransaction } = useDeleteTransaction();
   const {name, profilePhoto} = useGetUserInfo();
 
   const [description, setDescription] = useState("");
@@ -71,17 +69,32 @@ export const Budget = () => {
 
   return (
   <>
+    <div 
+      className="top-0 flex flex-row justify-between p-1 m-0 text-white bg-gray-800 shadow "
+    >
+
+      <img src={profilePhoto} alt="" className="h-8 rounded-full" />
+
+      <h1 className="h-8">Hi {name}</h1>
+
+      <button 
+        className="h-8 p-1 bg-red-500 rounded hover:bg-red-400"
+        onClick={logout}
+        >
+          Logout
+        </button>
+
+    </div>
+
     <div className="flex p-4 m-4 rounded bg-slate-400">
       
       <div className="">
-        <h1>Hi {name}</h1>
-        <button className="p-2 bg-red-700 rounded" onClick={logout}>Logout</button>
+        {/* <h1>Hi {name}</h1> */}
+        
         <div className="">
-          <h3>Your balance</h3>
+          <h3>Your Balance</h3>
           <h2>${transactionTotals.balance}</h2>
         </div>
-
-        {/* <button onClick={sortTransactions}>UH</button> */}
 
         <div>
           <div>
@@ -102,7 +115,7 @@ export const Budget = () => {
             type="text" 
             placeholder="Description" 
             required 
-            className="m-1"
+            className="p-1 m-1 rounded"
             onChange={(e) => setDescription(e.target.value)}
           />
 
@@ -110,7 +123,7 @@ export const Budget = () => {
           type="number" 
           placeholder="Amount" 
           required 
-          className="m-1"
+          className="p-1 m-1 rounded"
           onChange={(e) => setTransactionAmount(e.target.value)}
           />
 
@@ -145,7 +158,7 @@ export const Budget = () => {
         </form>
 
       </div>
-      {profilePhoto && <div><img src={profilePhoto} alt="" className="rounded-full" /></div>}
+      {/* {profilePhoto && <div className=""><img src={profilePhoto} alt="" className="rounded-full" /></div>} */}
     </div>
 
     <div className="flex flex-col p-4 m-4 rounded bg-slate-400">
