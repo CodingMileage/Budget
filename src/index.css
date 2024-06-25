@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .sidebar-icon {
+    @apply relative flex items-center justify-center w-10 h-10 mt-2 mb-2 text-green-500 transition-all duration-100 ease-linear bg-gray-800 shadow-lg hover:bg-green-600 hover:text-white rounded-3xl hover:rounded-xl;
+  }
+
+  .sidebar-tooltip {
+    @apply absolute w-auto p-2 m-2 text-xs font-bold text-white transition-all duration-100 origin-right scale-0 bg-gray-900 rounded-md shadow-md min-w-max right-14;
+  }
+}
