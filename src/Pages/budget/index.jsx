@@ -91,7 +91,7 @@ export const Budget = () => {
 
   return (
     <>
-      <div className="top-0 flex flex-row justify-between sm:justify-around items-center p-0 m-0 text-white bg-gray-700 shadow ">
+      <div className="top-0 flex flex-row items-center justify-between p-0 m-0 text-white bg-gray-700 shadow sm:justify-around ">
         <MyIcon
           icon={<img className="rounded-full" src={profilePhoto} />}
           text={name}
@@ -107,7 +107,7 @@ export const Budget = () => {
         />
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center"> 
         <div className="flex justify-center w-[500px] p-4 m-4 rounded bg-slate-400">
           <div className="">
             {/* <h1>Hi {name}</h1> */}
@@ -131,7 +131,7 @@ export const Budget = () => {
 
             <form
               action=""
-              className="flex flex-col w-[400px] p-2 rounded-lg bg-slate-200"
+              className="flex flex-col p-2 rounded-lg bg-slate-200"
               onSubmit={onSubmit}
             >
               <input
@@ -226,7 +226,7 @@ export const Budget = () => {
       </div>
 
       <button
-        className="p-2 bg-slate-400 rounded hover:opacity-55 duration-500"
+        className="p-2 duration-500 rounded bg-slate-400 hover:opacity-55"
         onClick={testPage}
       >
         Test Page
