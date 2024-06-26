@@ -8,6 +8,6 @@
   }
 
   .sidebar-tooltip {
-    @apply absolute w-auto p-2 m-2 text-xs font-bold text-white transition-all duration-100 origin-right scale-0 bg-gray-900 rounded-md shadow-md min-w-max right-14;
+    @apply absolute w-auto p-2 m-2 text-xs font-bold text-white transition-all duration-100 origin-right scale-0 bg-gray-900 rounded-md shadow-md min-w-max right-10;
   }
 }

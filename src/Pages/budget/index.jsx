@@ -62,6 +62,10 @@ export const Budget = () => {
     }
   };
 
+  const testPage = () => {
+    navigate("/test");
+  };
+
   // const sortTransactions = () => {
   //   let rollingIncome = 0;
   //   let rollingExpense = 0;
@@ -87,7 +91,7 @@ export const Budget = () => {
 
   return (
     <>
-      <div className="top-0 flex flex-row justify-around items-center p-0 m-0 text-white bg-gray-700 shadow ">
+      <div className="top-0 flex flex-row justify-between sm:justify-around items-center p-0 m-0 text-white bg-gray-700 shadow ">
         <MyIcon
           icon={<img className="rounded-full" src={profilePhoto} />}
           text={name}
@@ -103,105 +107,130 @@ export const Budget = () => {
         />
       </div>
 
-      <div className="flex p-4 m-4 rounded bg-slate-400">
-        <div className="">
-          {/* <h1>Hi {name}</h1> */}
-
+      <div className="flex justify-center">
+        <div className="flex justify-center w-[500px] p-4 m-4 rounded bg-slate-400">
           <div className="">
-            <h3>Your Balance</h3>
-            <h2>${transactionTotals.balance}</h2>
-          </div>
+            {/* <h1>Hi {name}</h1> */}
 
-          <div>
-            <div>
-              <h4>Income</h4>
-              <p>${transactionTotals.income}</p>
+            <div className="">
+              <h3>Your Balance</h3>
+              <h2>${transactionTotals.balance}</h2>
             </div>
 
             <div>
-              <h4>Expenses</h4>
-              <p>${transactionTotals.expenses}</p>
+              <div>
+                <h4>Income</h4>
+                <p>${transactionTotals.income}</p>
+              </div>
+
+              <div>
+                <h4>Expenses</h4>
+                <p>${transactionTotals.expenses}</p>
+              </div>
             </div>
-          </div>
 
-          <form
-            action=""
-            className="p-2 rounded-lg bg-slate-200"
-            onSubmit={onSubmit}
-          >
-            <input
-              type="text"
-              placeholder="Description"
-              required
-              className="p-1 m-1 rounded"
-              onChange={(e) => setDescription(e.target.value)}
-            />
-
-            <input
-              type="number"
-              placeholder="Amount"
-              required
-              className="p-1 m-1 rounded"
-              onChange={(e) => setTransactionAmount(e.target.value)}
-            />
-
-            <input
-              type="radio"
-              id="Expense"
-              value="Expense"
-              checked={transactionType === "Expense"}
-              className="m-1"
-              onChange={(e) => setTransactionType(e.target.value)}
-            />
-            <label htmlFor="Expense">Expense</label>
-
-            <input
-              type="radio"
-              id="Income"
-              value="Income"
-              checked={transactionType === "Income"}
-              className="m-1"
-              onChange={(e) => setTransactionType(e.target.value)}
-            />
-            <label htmlFor="Income">Income</label>
-
-            <button
-              type="submit"
-              // onClick={}
-              className="px-1 py-1 m-2 bg-blue-400 rounded hover:bg-blue-500"
+            <form
+              action=""
+              className="flex flex-col w-[400px] p-2 rounded-lg bg-slate-200"
+              onSubmit={onSubmit}
             >
-              Add Transaction
-            </button>
-          </form>
+              <input
+                type="text"
+                placeholder="Description"
+                required
+                className="p-1 m-1 rounded"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+
+              <input
+                type="number"
+                placeholder="Amount"
+                required
+                className="p-1 m-1 rounded"
+                onChange={(e) => setTransactionAmount(e.target.value)}
+              />
+
+              <div>
+                <input
+                  type="radio"
+                  id="Expense"
+                  value="Expense"
+                  checked={transactionType === "Expense"}
+                  className="m-1"
+                  onChange={(e) => setTransactionType(e.target.value)}
+                />
+                <label htmlFor="Expense">Expense</label>
+
+                <input
+                  type="radio"
+                  id="Income"
+                  value="Income"
+                  checked={transactionType === "Income"}
+                  className="m-1"
+                  onChange={(e) => setTransactionType(e.target.value)}
+                />
+                <label htmlFor="Income">Income</label>
+              </div>
+
+              <button
+                type="submit"
+                // onClick={}
+                className="px-1 py-1 m-2 bg-blue-400 rounded hover:bg-blue-500"
+              >
+                Add Transaction
+              </button>
+            </form>
+          </div>
+          {/* {profilePhoto && <div className=""><img src={profilePhoto} alt="" className="rounded-full" /></div>} */}
         </div>
-        {/* {profilePhoto && <div className=""><img src={profilePhoto} alt="" className="rounded-full" /></div>} */}
       </div>
 
-      <div className="flex flex-col p-4 m-4 rounded bg-slate-400">
-        <h3 className="">Transactions</h3>
-        <ul>
-          {transactions.map((transaction, index) => {
-            const { description, transactionAmount, transactionType, id } =
-              transaction;
+      <div className="flex justify-center">
+        <div className="flex flex-col p-4 m-4 w-[500px] rounded bg-slate-400">
+          <h3 className="">Transactions</h3>
+          <ul>
+            {transactions.map((transaction, index) => {
+              const { description, transactionAmount, transactionType, id } =
+                transaction;
 
-            return (
-              <li key={index} className="p-2 m-2 rounded bg-slate-100 ">
-                <h4>{description}</h4>
-                <p>
-                  ${transactionAmount} •{" "}
-                  <label className="">{transactionType}</label>
-                </p>
-                <button
-                  className="p-1 bg-red-500 rounded hover:bg-red-400"
-                  onClick={() => handleDelete(id)}
-                >
-                  Delete
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+              return (
+                <>
+                  <div className="flex flex-col">
+                    {/* <h3>{description}</h3> */}
+
+                    <li
+                      key={index}
+                      className="flex flex-col p-2 m-2 rounded bg-slate-100 "
+                    >
+                      <h5>{description}</h5>
+                      <div className="flex justify-between">
+                        <p>
+                          ${transactionAmount} •{" "}
+                          <label className="">{transactionType}</label>
+                        </p>
+
+                        <button
+                          className="p-1 bg-red-500 rounded hover:bg-red-400"
+                          onClick={() => handleDelete(id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </li>
+                  </div>
+                </>
+              );
+            })}
+          </ul>
+        </div>
       </div>
+
+      <button
+        className="p-2 bg-slate-400 rounded hover:opacity-55 duration-500"
+        onClick={testPage}
+      >
+        Test Page
+      </button>
     </>
   );
 };
