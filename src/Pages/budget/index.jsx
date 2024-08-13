@@ -18,6 +18,14 @@ const MyIcon = ({ icon, text, onClick }) => {
   );
 };
 
+const Buttonn = ({ onClick, label }) => {
+  return (
+    <button className="p-2 m-2 bg-purple-500 rounded" onClick={onClick}>
+      {label}
+    </button>
+  );
+};
+
 // const MyIcon = ({ icon, text }) => {
 //   return (
 //     <button className="flex items-center space-x-1">
@@ -66,6 +74,10 @@ export const Budget = () => {
     navigate("/test");
   };
 
+  const testPage2 = () => {
+    navigate("/test2");
+  };
+
   // const sortTransactions = () => {
   //   let rollingIncome = 0;
   //   let rollingExpense = 0;
@@ -91,7 +103,7 @@ export const Budget = () => {
 
   return (
     <>
-      <div className="top-0 flex flex-row items-center justify-between p-0 m-0 text-white bg-gray-700 shadow sm:justify-around ">
+      <div className="top-0 flex flex-row items-center justify-around p-0 m-0 text-white bg-gray-700 shadow ">
         <MyIcon
           icon={<img className="rounded-full" src={profilePhoto} />}
           text={name}
@@ -107,10 +119,19 @@ export const Budget = () => {
         />
       </div>
 
-      <div className="flex justify-center"> 
+      <div className="flex justify-center">
         <div className="flex justify-center w-[500px] p-4 m-4 rounded bg-slate-400">
           <div className="">
             {/* <h1>Hi {name}</h1> */}
+
+            <Buttonn
+              onClick={() => alert("Button clicked!")}
+              label="Click Me"
+            />
+            <Buttonn
+              onClick={() => alert("Another button clicked!")}
+              label="Another Click"
+            />
 
             <div className="">
               <h3>Your Balance</h3>
@@ -225,12 +246,19 @@ export const Budget = () => {
         </div>
       </div>
 
-      <button
+      {/* <button
         className="p-2 duration-500 rounded bg-slate-400 hover:opacity-55"
         onClick={testPage}
       >
         Test Page
       </button>
+
+      <button
+        className="p-2 duration-500 rounded bg-slate-400 hover:opacity-55"
+        onClick={testPage2}
+      >
+        Test Page
+      </button> */}
     </>
   );
 };
